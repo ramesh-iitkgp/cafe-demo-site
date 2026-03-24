@@ -1,0 +1,16 @@
+{
+  "workflow": "github-template-injection",
+  "city": "bangalore",
+  "category": "cafe",
+  "timestamp": "2026-03-25T02:22:40.684602",
+  "metrics": {
+    "campaign_entries": 20,
+    "links_injected": 20,
+    "ready_to_send": 20
+  },
+  "template_url": "https://ramesh-iitkgp.github.io/business-demo-site/cafe/demo",
+  "sample_links": {
+    "first": "https://ramesh-iitkgp.github.io/business-demo-site/cafe/demo?name=trippy-goat-cafe&location=bangalore",
+    "second": "https://ramesh-iitkgp.github.io/business-demo-site/cafe/demo?name=the-studio-cafe&location=bangalore"
+  }
+}

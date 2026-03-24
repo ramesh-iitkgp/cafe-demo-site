@@ -1,0 +1,13 @@
+{
+  "workflow": "start-to-finish",
+  "city": "bangalore",
+  "category": "cafe",
+  "timestamp": "2026-03-25T02:19:04.278002",
+  "metrics": {
+    "leads_loaded": 25,
+    "leads_valid": 25,
+    "leads_invalid": 0,
+    "whatsapp_messages": 20,
+    "ready_to_send": 20
+  }
+}
