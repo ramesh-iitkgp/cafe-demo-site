@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Open House Cafe | Siliguri</title>
-    <script type="module" crossorigin src="./assets/index-DyMKwZJA.js"></script>
+    <script type="module" crossorigin src="./assets/index-CnolFtHv.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-CLvP9P2i.css">
   </head>
   <body>
@@ -14,102 +14,60 @@
     <script>
         const params = new URLSearchParams(window.location.search);
         const nameSlug = params.get('name') || '';
-        const location = params.get('location') || '';
+        const cityLocation = params.get('location') || '';
         const phone = (params.get('phone') || '').replace(/\D/g, '');
 
         function slugToTitle(slug) {
             if (!slug) return 'Business';
-            return slug
-                .split('-')
-                .map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
-                .join(' ');
+            return slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase()).join(' ');
         }
 
         const businessName = slugToTitle(nameSlug);
 
-        document.addEventListener('DOMContentLoaded', function() {
-            function applyUpdates() {
+        function replaceInElement(el) {
+            if (!el || !el.childNodes) return;
+            for (let i = 0; i < el.childNodes.length; i++) {
+                const node = el.childNodes[i];
+                if (node.nodeType === 3) {
+                    let text = node.textContent;
+                    let originalText = text;
+                    text = text.replace(/GENTLEMAN'S\s*&\s*CO\./gi, businessName.toUpperCase());
+                    text = text.replace(/BLADE\s*&\s*CO\./gi, businessName.toUpperCase());
+                    text = text.replace(/OPEN\s*HOUSE\s*CAFE/gi, businessName.toUpperCase());
+                    text = text.replace(/GENTLEMANS_BARBER/gi, '@' + nameSlug);
+                    text = text.replace(/Siliguri/gi, cityLocation || 'Location');
+                    if (text !== originalText) node.textContent = text;
+                } else if (node.nodeType === 1 && node.nodeName !== 'SCRIPT' && node.nodeName !== 'STYLE') {
+                    replaceInElement(node);
+                }
+            }
+        }
+
+        function applyUpdates() {
+            if (businessName) {
+                try { document.title = cityLocation ? `${businessName} | ${cityLocation}` : businessName; } catch (e) {}
+                replaceInElement(document.body);
+            }
+
             if (phone) {
-                const parts = [];
-                if (businessName) parts.push(businessName);
-                if (location) parts.push(location);
+                const parts = [businessName, cityLocation].filter(Boolean);
                 const msg = encodeURIComponent(parts.join(' - '));
                 const url = `https://wa.me/${phone}?text=${msg}`;
-
-                const selectors = [
-                    'a[href*="wa.me"]',
-                    'a[href*="whatsapp"]',
-                    '#whatsappNav',
-                    '.whatsapp-btn',
-                    '.btn-whatsapp',
-                ];
-                document.querySelectorAll(selectors.join(',')).forEach(a => {
+                document.querySelectorAll('a[href*="wa.me"], a[href*="whatsapp"], [href*="gentlemans"], .whatsapp-btn, .btn-whatsapp').forEach(a => {
                     a.setAttribute('href', url);
                     a.setAttribute('target', '_blank');
                     a.setAttribute('rel', 'noopener');
                 });
             }
-
-            if (businessName) {
-                // Update document title when possible
-                try {
-                    if (location) {
-                        document.title = `${businessName} | ${location}`;
-                    } else {
-                        document.title = businessName;
-                    }
-                } catch (e) {}
-
-                document.querySelectorAll('[id*="name" i], [id*="title" i]').forEach(el => {
-                    if (el.textContent && el.textContent.length < 80) {
-                        el.textContent = businessName;
-                    }
-                });
-
-                // Fallback for templates with hard-coded texts (cafe + barber etc.)
-                try {
-                    document.querySelectorAll('body *').forEach(el => {
-                        if (!el.childNodes || el.childNodes.length !== 1) return;
-                        const text = (el.textContent || '').trim();
-                        if (!text) return;
-                        const normalized = text.replace(/\s+/g, ' ').toUpperCase();
-                        // Old cafe template brand
-                        if (normalized === 'OPEN HOUSE CAFE') {
-                            el.textContent = businessName;
-                        }
-                        // Barber template brands
-                        if (normalized === "GENTLEMAN'S & CO." || normalized === 'BLADE & CO.') {
-                            el.textContent = businessName.toUpperCase();
-                        }
-                    });
-                } catch (e) {}
-            }
-
-            if (location) {
-                document.querySelectorAll('[id*="location" i], [id*="city" i]').forEach(el => {
-                    if (el.textContent && el.textContent.length < 80) {
-                        el.textContent = location;
-                    }
-                });
-
-                // Fallback for templates with hard-coded Siliguri location text
-                try {
-                    document.querySelectorAll('body *').forEach(el => {
-                        if (!el.childNodes || el.childNodes.length !== 1) return;
-                        const text = (el.textContent || '').trim();
-                        if (!text) return;
-                        if (text === 'Siliguri' || text === 'Cafe in Siliguri') {
-                            el.textContent = location;
-                        }
-                    });
-                } catch (e) {}
-            }
         }
 
         applyUpdates();
-        setTimeout(applyUpdates, 1200);
+        setTimeout(applyUpdates, 300);
+        setTimeout(applyUpdates, 800);
+        setTimeout(applyUpdates, 1500);
         setTimeout(applyUpdates, 3000);
-        });
+        
+        new MutationObserver(() => applyUpdates()).observe(document.body, { childList: true, subtree: true, characterData: true });
     </script>
 </body>
 </html>
