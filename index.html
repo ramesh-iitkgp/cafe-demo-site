@@ -1,609 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open House Cafe - Premium Coffee Experience</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            color: #4a3728;
-            background: #faf7f2;
-        }
-
-        /* Demo Badge */
-        .demo-badge {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            z-index: 1000;
-            background: #ff6b6b;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
-        }
-
-        /* Header/Navigation */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(250, 247, 242, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 100;
-            border-bottom: 1px solid #e8dfd6;
-        }
-
-        nav {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: #8B6F47;
-            gap: 0.5rem;
-        }
-
-        nav a {
-            text-decoration: none;
-            color: #4a3728;
-            margin: 0 1.5rem;
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        nav a:hover {
-            color: #C9A227;
-        }
-
-        .nav-buttons {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn-primary, .btn-secondary {
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn-primary {
-            background: #C9A227;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #b8942a;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(201, 162, 39, 0.3);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: #4a3728;
-            border: 1px solid #C9A227;
-        }
-
-        .btn-secondary:hover {
-            background: #C9A227;
-            color: white;
-        }
-
-        /* Hero Section */
-        .hero {
-            margin-top: 70px;
-            min-height: calc(100vh - 70px);
-            background: linear-gradient(135deg, #8B6F47 0%, #C9A227 100%);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,144C960,149,1056,139,1152,128C1248,117,1344,107,1392,101.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
-            background-repeat: no-repeat;
-            background-size: cover;
-            opacity: 0.3;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-        }
-
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-            font-style: italic;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.95;
-            font-weight: 300;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        /* About Section */
-        section {
-            padding: 5rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .section-header .label {
-            color: #C9A227;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .section-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: #4a3728;
-            margin-bottom: 1rem;
-        }
-
-        .section-header p {
-            color: #8B6F47;
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-        }
-
-        .feature-card h3 {
-            color: #C9A227;
-            margin-bottom: 0.5rem;
-            font-size: 1.3rem;
-        }
-
-        .feature-card p {
-            color: #8B6F47;
-            font-size: 0.95rem;
-        }
-
-        /* Menu Section */
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .menu-item {
-            background: white;
-            border: 1px solid #f0ebe3;
-            border-radius: 8px;
-            overflow: hidden;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .menu-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(201, 162, 39, 0.15);
-        }
-
-        .menu-item img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-        }
-
-        .menu-item-content {
-            padding: 1.5rem;
-        }
-
-        .menu-item h3 {
-            color: #4a3728;
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .menu-item .price {
-            color: #C9A227;
-            font-weight: 600;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .menu-item p {
-            color: #8B6F47;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        /* Contact Section */
-        .contact-section {
-            background: #8B6F47;
-            color: white;
-            text-align: center;
-        }
-
-        .contact-section h2 {
-            color: white;
-        }
-
-        .contact-section .label {
-            color: #C9A227;
-        }
-
-        .contact-info {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-
-        .contact-card {
-            background: rgba(255,255,255,0.1);
-            padding: 1.5rem;
-            border-radius: 8px;
-            backdrop-filter: blur(10px);
-        }
-
-        .contact-card h3 {
-            color: #C9A227;
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-card p {
-            opacity: 0.9;
-        }
-
-        /* Booking Form */
-        .booking-form {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            max-width: 500px;
-            margin: 2rem auto;
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #4a3728;
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #e8dfd6;
-            border-radius: 6px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.95rem;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #C9A227;
-            box-shadow: 0 0 0 3px rgba(201, 162, 39, 0.1);
-        }
-
-        /* WhatsApp Button */
-        .whatsapp-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #25D366;
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-
-        .whatsapp-btn:hover {
-            background: #20ba5a;
-            transform: scale(1.05);
-        }
-
-        /* Footer */
-        footer {
-            background: #4a3728;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-        }
-
-        footer p {
-            opacity: 0.8;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            nav {
-                flex-wrap: wrap;
-                padding: 1rem;
-            }
-
-            nav a {
-                margin: 0 0.5rem;
-                font-size: 12px;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .section-header h2 {
-                font-size: 1.8rem;
-            }
-
-            .nav-buttons {
-                width: 100%;
-                gap: 0.5rem;
-            }
-
-            .btn-primary, .btn-secondary {
-                padding: 0.5rem 1rem;
-                font-size: 11px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="demo-badge">Demo - Click WhatsApp</div>
-
-    <!-- Navigation -->
-    <header>
-        <nav>
-            <div class="logo">☕ Open House</div>
-            <div style="display: flex; gap: 2rem;">
-                <a href="#about">About</a>
-                <a href="#menu">Menu</a>
-                <a href="#contact">Contact</a>
-            </div>
-            <div class="nav-buttons">
-                <a href="#contact" class="btn-secondary">Reserve Table</a>
-                <a id="whatsappNav" href="#" class="btn-primary" style="width: 100px; text-align: center;">Order Now</a>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1 id="businessName">Open House<br><span style="font-style: italic; opacity: 0.9;">Great Coffee.</span></h1>
-            <p id="businessDescription">Experience the perfect blend of artisanal coffee and culinary excellence in the heart of Siliguri</p>
-            <div class="hero-buttons">
-                <a id="whatsappHero" href="#" class="btn-primary">Order via WhatsApp</a>
-                <a href="#menu" class="btn-secondary">Explore Menu</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about">
-        <div class="section-header">
-            <span class="label">Our Story</span>
-            <h2>Crafted with Passion</h2>
-            <p>We believe in the power of a perfect cup and the joy of good company</p>
-        </div>
-        <div class="about-grid">
-            <div class="feature-card">
-                <h3>🌱 Premium Quality</h3>
-                <p>Sourced fresh ingredients from the finest suppliers around the world</p>
-            </div>
-            <div class="feature-card">
-                <h3>☕ Expert Baristas</h3>
-                <p>Our team brings years of experience and passion to every brew</p>
-            </div>
-            <div class="feature-card">
-                <h3>🏠 Cozy Ambience</h3>
-                <p>The perfect space for work, meetings, or just relaxing with friends</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Menu Section -->
-    <section id="menu">
-        <div class="section-header">
-            <span class="label">Our Specialties</span>
-            <h2>Popular Menu Items</h2>
-        </div>
-        <div class="menu-grid">
-            <div class="menu-item">
-                <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=300&h=200&fit=crop" alt="Cappuccino">
-                <div class="menu-item-content">
-                    <h3>Cappuccino</h3>
-                    <div class="price">₹120</div>
-                    <p>Rich espresso with steamed milk foam</p>
-                </div>
-            </div>
-            <div class="menu-item">
-                <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=300&h=200&fit=crop" alt="Latte">
-                <div class="menu-item-content">
-                    <h3>Hazelnut Latte</h3>
-                    <div class="price">₹150</div>
-                    <p>Smooth espresso with nutty flavor</p>
-                </div>
-            </div>
-            <div class="menu-item">
-                <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=300&h=200&fit=crop" alt="Cold Coffee">
-                <div class="menu-item-content">
-                    <h3>Cold Coffee</h3>
-                    <div class="price">₹180</div>
-                    <p>Blended with ice cream and cocoa</p>
-                </div>
-            </div>
-            <div class="menu-item">
-                <img src="https://images.unsplash.com/photo-1554433607-66b5efe9d304?w=300&h=200&fit=crop" alt="Sandwich">
-                <div class="menu-item-content">
-                    <h3>Garden Sandwich</h3>
-                    <div class="price">₹140</div>
-                    <p>Fresh veggies and grilled bread</p>
-                </div>
-            </div>
-            <div class="menu-item">
-                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=300&h=200&fit=crop" alt="Pizza">
-                <div class="menu-item-content">
-                    <h3>Cheese Pizza</h3>
-                    <div class="price">₹250</div>
-                    <p>Mozzarella, basil, tomato sauce</p>
-                </div>
-            </div>
-            <div class="menu-item">
-                <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc672?w=300&h=200&fit=crop" alt="Shake">
-                <div class="menu-item-content">
-                    <h3>Choco Shake</h3>
-                    <div class="price">₹190</div>
-                    <p>Thick belgian chocolate blend</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact-section" id="contact">
-        <div class="section-header">
-            <span class="label">Get in Touch</span>
-            <h2>Visit Us Today</h2>
-        </div>
-        <div class="contact-info">
-            <div class="contact-card">
-                <h3>📍 Location</h3>
-                <p id="contactLocation">Infinity Square, Sevoke Rd, Siliguri</p>
-            </div>
-            <div class="contact-card">
-                <h3>📞 Phone</h3>
-                <p id="contactPhone">+91 98765 43210</p>
-            </div>
-            <div class="contact-card">
-                <h3>🕐 Hours</h3>
-                <p>Mon-Sun: 7:00 AM - 10:00 PM</p>
-            </div>
-        </div>
-
-        <div class="booking-form">
-            <h3 style="color: #4a3728; margin-bottom: 1.5rem;">Make a Reservation</h3>
-            <form id="bookingForm">
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" id="formName" placeholder="Your name">
-                </div>
-                <div class="form-group">
-                    <label>Phone</label>
-                    <input type="tel" id="formPhone" placeholder="Your phone number">
-                </div>
-                <div class="form-group">
-                    <label>Date</label>
-                    <input type="date" id="formDate">
-                </div>
-                <div class="form-group">
-                    <label>Message</label>
-                    <textarea id="formMessage" placeholder="Any special requests?" rows="3"></textarea>
-                </div>
-                <button type="submit" class="btn-primary" style="width: 100%; cursor: pointer;">Send via WhatsApp</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 Open House Cafe. All rights reserved.</p>
-        <p>Demo Website - For Business Promotion</p>
-    </footer>
-
-    <!-- Dynamic Injection Script -->
-        <!-- Professional Template with Dynamic Injection -->
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Open House Cafe | Siliguri</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    
+    <!-- Dynamic WhatsApp Injection -->
     <script>
-        // ✅ PROFESSIONAL INJECTION LOGIC
-        // Convert slug to title case: "ultimate-fitness" → "Ultimate Fitness"
+        // Read URL parameters
+        const params = new URLSearchParams(window.location.search);
+        const nameSlug = params.get('name') || '';
+        const location = params.get('location') || '';
+        const phone = (params.get('phone') || '').replace(/\D/g, '');
+
         function slugToTitle(slug) {
             if (!slug) return 'Business';
             return slug
@@ -612,64 +24,51 @@
                 .join(' ');
         }
 
-        // Get URL parameters
-        const params = new URLSearchParams(window.location.search);
-        const nameSlug = params.get('name') || '';
-        const location = params.get('location') || 'Your Location';
-        const phone = params.get('phone') || '';
+        const businessName = slugToTitle(nameSlug);
 
-        // Convert slug to proper case
-        const businessName = nameSlug ? slugToTitle(nameSlug) : 'Business';
-
-        // Debug logging
-        console.log('🎯 Professional Template Injection Active:');
-        console.log('  nameSlug:', nameSlug);
-        console.log('  businessName:', businessName);
-        console.log('  location:', location);
-        console.log('  phone:', phone);
-
-        // Wait for DOM to be ready
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('✅ DOMContentLoaded - Updating elements...');
-            
-            // Update page title
-            const titleEl = document.querySelector('title');
-            if (titleEl) {
-                titleEl.textContent = businessName + ' | Professional Services';
-                console.log('  ✅ Updated title');
-            }
-            
-            // Update all heading id="businessName"
-            document.querySelectorAll('[id*="name"], [id*="title"], h1').forEach(el => {
-                if (el.textContent && el.textContent.length < 100 && nameSlug) {
-                    const originalText = el.textContent.toLowerCase();
-                    if (originalText.includes('name') || originalText.length < 30) {
-                        el.textContent = businessName;
-                    }
-                }
-            });
-            
-            // Update location elements
-            document.querySelectorAll('[id*="location"], [id*="address"], [id*="city"]').forEach(el => {
-                el.textContent = location;
-            });
-            
-            // Update phone elements
+            // Build WhatsApp link if phone present
             if (phone) {
-                document.querySelectorAll('[id*="phone"], [id*="contact-phone"]').forEach(el => {
-                    el.textContent = phone;
+                const messageParts = [];
+                if (businessName) messageParts.push(businessName);
+                if (location) messageParts.push(location);
+                const message = encodeURIComponent(messageParts.join(' - '));
+                const waUrl = `https://wa.me/${phone}?text=${message}`;
+
+                // Update obvious WhatsApp buttons/links
+                const selectors = [
+                    'a[href*="wa.me"]',
+                    'a[href*="whatsapp"]',
+                    '#whatsappNav',
+                    '.whatsapp-btn',
+                    '.btn-whatsapp'
+                ];
+
+                const anchors = document.querySelectorAll(selectors.join(','));
+                anchors.forEach(a => {
+                    a.setAttribute('href', waUrl);
+                    a.setAttribute('target', '_blank');
+                    a.setAttribute('rel', 'noopener');
                 });
             }
-            
-            console.log('✅ UPDATE COMPLETE');
-        });
 
-        // Run immediately if document already loaded
-        if (document.readyState !== 'loading') {
-            document.querySelectorAll('[id*="name"]').forEach(el => {
-                if (nameSlug) el.textContent = businessName;
-            });
-        }
+            // Best-effort: update obvious name/location placeholders
+            if (businessName) {
+                document.querySelectorAll('[id*="name" i], [id*="title" i]').forEach(el => {
+                    if (el.textContent && el.textContent.length < 80) {
+                        el.textContent = businessName;
+                    }
+                });
+            }
+            if (location) {
+                document.querySelectorAll('[id*="location" i], [id*="city" i]').forEach(el => {
+                    if (el.textContent && el.textContent.length < 80) {
+                        el.textContent = location;
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
+
